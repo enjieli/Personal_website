@@ -1,7 +1,7 @@
 ---
 title: "Visualizing Chicago Public Transit Ridership"
 date: 2019-11-23
-categories: ["Data Visualization","Spatail analysis"]
+categories: ["Data Visualization","Spatial analysis"]
 tags: ["R Markdown", "spatial maps", "segmentation"]
 ---
 
@@ -10,7 +10,7 @@ tags: ["R Markdown", "spatial maps", "segmentation"]
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-In this post, I used Open data from Chicago Transit Authority (CTA) to segmente routes based on ridership, and developed a visualization dashboard to identify stops with inbanalced boardings and alightings and stops with the most ridership. Get the raw data [here](https://raw.githubusercontent.com/enjieli/CAT-data-demo/master/app/CTA_-_Ridership_-_Avg._Weekday_Bus_Stop_Boardings_in_October_2012.csv).
+In this post, I used Open data from Chicago Transit Authority (CTA) to segment routes based on ridership, and developed a visualization dashboard to identify stops with unbalanced boardings and alightings and stops with the most ridership. Get the raw data [here](https://raw.githubusercontent.com/enjieli/CAT-data-demo/master/app/CTA_-_Ridership_-_Avg._Weekday_Bus_Stop_Boardings_in_October_2012.csv).
 
 
 ### load package

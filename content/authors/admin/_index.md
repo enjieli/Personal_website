@@ -36,7 +36,7 @@ social:
   link: https://scholar.google.com/citations?user=cjQoGxMAAAAJ&hl=en
 - icon: envelope
   icon_pack: fas
-  link: "jane.enjieli@gmail.com"
+  link: "mailto:jane.enjieli@gmail.com"
 
 superuser: true
 title: Jane Li

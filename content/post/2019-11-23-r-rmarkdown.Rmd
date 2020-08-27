@@ -1,7 +1,7 @@
 ---
 title: "Visualizing Chicago Public Transit Ridership"
 date: 2019-11-23
-categories: ["Data Visualization","Spatial analysis"]
+categories: ["Data Visualization","Spatial Analysis"]
 tags: ["R Markdown", "spatial maps", "segmentation"]
 ---
 

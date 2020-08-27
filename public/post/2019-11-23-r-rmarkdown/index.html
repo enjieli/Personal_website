@@ -30,7 +30,7 @@
   
     
   
-  <meta name="description" content="In this post, I used Open data from Chicago Transit Authority (CTA) to segmente routes based on ridership, and developed a visualization dashboard to identify stops with inbanalced boardings and alightings and stops with the most ridership.">
+  <meta name="description" content="In this post, I used Open data from Chicago Transit Authority (CTA) to segment routes based on ridership, and developed a visualization dashboard to identify stops with unbalanced boardings and alightings and stops with the most ridership.">
 
   
   <link rel="alternate" hreflang="en-us" href="/post/2019-11-23-r-rmarkdown/">
@@ -256,7 +256,7 @@
   <meta property="og:site_name" content="Jane Li">
   <meta property="og:url" content="/post/2019-11-23-r-rmarkdown/">
   <meta property="og:title" content="Visualizing Chicago Public Transit Ridership | Jane Li">
-  <meta property="og:description" content="In this post, I used Open data from Chicago Transit Authority (CTA) to segmente routes based on ridership, and developed a visualization dashboard to identify stops with inbanalced boardings and alightings and stops with the most ridership."><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
+  <meta property="og:description" content="In this post, I used Open data from Chicago Transit Authority (CTA) to segment routes based on ridership, and developed a visualization dashboard to identify stops with unbalanced boardings and alightings and stops with the most ridership."><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
   <meta property="twitter:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
     
@@ -306,7 +306,7 @@
       "url": "/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png"
     }
   },
-  "description": "In this post, I used Open data from Chicago Transit Authority (CTA) to segmente routes based on ridership, and developed a visualization dashboard to identify stops with inbanalced boardings and alightings and stops with the most ridership."
+  "description": "In this post, I used Open data from Chicago Transit Authority (CTA) to segment routes based on ridership, and developed a visualization dashboard to identify stops with unbalanced boardings and alightings and stops with the most ridership."
 }
 </script>
 
@@ -653,7 +653,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-categories">
-    <i class="fas fa-folder mr-1"></i><a href="/category/data-visualization/">Data Visualization</a>, <a href="/category/spatail-analysis/">Spatail analysis</a></span>
+    <i class="fas fa-folder mr-1"></i><a href="/category/data-visualization/">Data Visualization</a>, <a href="/category/spatial-analysis/">Spatial Analysis</a></span>
   
 
 </div>
@@ -682,7 +682,6 @@
 
     <div class="article-style">
       
-<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 <script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
 <script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
 <script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
@@ -697,7 +696,7 @@
 <script src="/rmarkdown-libs/leaflet-providers-plugin/leaflet-providers-plugin.js"></script>
 
 
-<p>In this post, I used Open data from Chicago Transit Authority (CTA) to segmente routes based on ridership, and developed a visualization dashboard to identify stops with inbanalced boardings and alightings and stops with the most ridership. Get the raw data <a href="https://raw.githubusercontent.com/enjieli/CAT-data-demo/master/app/CTA_-_Ridership_-_Avg._Weekday_Bus_Stop_Boardings_in_October_2012.csv">here</a>.</p>
+<p>In this post, I used Open data from Chicago Transit Authority (CTA) to segment routes based on ridership, and developed a visualization dashboard to identify stops with unbalanced boardings and alightings and stops with the most ridership. Get the raw data <a href="https://raw.githubusercontent.com/enjieli/CAT-data-demo/master/app/CTA_-_Ridership_-_Avg._Weekday_Bus_Stop_Boardings_in_October_2012.csv">here</a>.</p>
 <div id="load-package" class="section level3">
 <h3>load package</h3>
 <pre class="r"><code>library(knitr)
@@ -721,7 +720,8 @@ raw_df&lt;-
   mutate( lat =as.numeric(lat)) %&gt;%
   mutate( lon= as.numeric(lon))</code></pre>
 </div>
-<div id="table-1-routes-with-most-stops" class="section level5" style="margin-top:50px;">
+<div style="margin-top:50px;">
+<div id="table-1-routes-with-most-stops" class="section level5">
 <h5>Table 1 Routes with most stops</h5>
 <div style="margin-bottom:20px;">
 
@@ -831,7 +831,9 @@ N5
 </tbody>
 </table>
 </div>
-<div id="table-2-stops-with-the-most-routes" class="section level5" style="margin-top:100px;">
+<div style="margin-top:100px;">
+</div>
+<div id="table-2-stops-with-the-most-routes" class="section level5">
 <h5>Table 2 Stops with the most routes</h5>
 <div style="margin-bottom:20px;">
 
@@ -1039,8 +1041,8 @@ GRAND
 </tbody>
 </table>
 </div>
-<div id="figure-1-stop-density-map" class="section level5" style="margin-top:100px;">
-<h5>Figure 1 Stop Density Map</h5>
+<div style="margin-top:100px;">
+<h5 id="figure-1-stop-density-map">Figure 1 Stop Density Map</h5>
 <div style="margin-bottom:20px;">
 
 </div>
@@ -1072,8 +1074,8 @@ stops_density_map &lt;-
 stops_density_map</code></pre>
 <p><img src="/post/2019-11-23-r-rmarkdown_files/figure-html/chicago_basemap-1.png" width="672" /></p>
 </div>
-<div id="figure-2-map-of-stops-with-no-ridership" class="section level5" style="margin-top:100px;">
-<h5>Figure 2 Map of stops with no ridership</h5>
+<div style="margin-top:100px;">
+<h5 id="figure-2-map-of-stops-with-no-ridership">Figure 2 Map of stops with no ridership</h5>
 <div style="margin-bottom:20px;">
 
 </div>
@@ -1124,7 +1126,9 @@ leaflet(stops_no_ridership_sp) %&gt;%
 <div id="htmlwidget-1" style="width:672px;height:480px;" class="leaflet html-widget"></div>
 <script type="application/json" data-for="htmlwidget-1">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"setView":[[41.85443,-87.705],10,[]],"calls":[{"method":"addProviderTiles","args":["Stamen.Toner",null,"Stamen Toner",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addCircleMarkers","args":[[41.87662062,41.87668892,41.87682102,41.87680393,41.87675729,41.87672858,41.749088,41.749023,41.750762,41.74875,41.74892,41.748948,41.749008,41.77425132,41.74034757,41.74034757,41.67616905,41.6642564,41.823485,41.81422668,41.75028113,41.741143,41.977629,41.979452,41.981723,41.96809926,41.76023192,41.76015217,41.757397,41.75993518,41.990634,41.70284261,42.04422924,42.06066772,42.06180301,42.02143118,42.05867048,42.05378298,42.06051267,41.86435978,41.79796125,41.87662062,41.87668892,41.87682102,41.87680393,41.87675729,41.87672858,41.749088,41.749023,41.750762,41.74875,41.74892,41.748948,41.749008,41.77425132,41.74034757,41.74034757,41.67616905,41.6642564,41.823485,41.81422668,41.75028113,41.741143,41.977629,41.979452,41.981723,41.96809926,41.76023192,41.76015217,41.757397,41.75993518,41.990634,41.70284261,42.04422924,42.06066772,42.06180301,42.02143118,42.05867048,42.05378298,42.06051267,41.86435978,41.79796125],[-87.74912362,-87.74701737,-87.74713903,-87.74934028,-87.75161217,-87.75353528,-87.748428,-87.753302,-87.760882,-87.760205,-87.751308,-87.748953,-87.746425,-87.76411962,-87.63928869,-87.63928869,-87.5401449,-87.53946008,-87.637471,-87.65065859,-87.68298345,-87.68272,-87.824129,-87.823905,-87.809901,-87.84630803,-87.74249654,-87.74656191,-87.761002,-87.75384338,-87.765899,-87.5485546,-87.68208556,-87.68192721,-87.68184471,-87.69004039,-87.68559263,-87.68484323,-87.68491612,-87.62233887,-87.74333198,-87.74912362,-87.74701737,-87.74713903,-87.74934028,-87.75161217,-87.75353528,-87.748428,-87.753302,-87.760882,-87.760205,-87.751308,-87.748953,-87.746425,-87.76411962,-87.63928869,-87.63928869,-87.5401449,-87.53946008,-87.637471,-87.65065859,-87.68298345,-87.68272,-87.824129,-87.823905,-87.809901,-87.84630803,-87.74249654,-87.74656191,-87.761002,-87.75384338,-87.765899,-87.5485546,-87.68208556,-87.68192721,-87.68184471,-87.69004039,-87.68559263,-87.68484323,-87.68491612,-87.62233887,-87.74333198],[6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6],null,null,{"interactive":true,"className":"","stroke":false,"color":["#BE2A4A","#BE2A4A","#BE2A4A","#BE2A4A","#BE2A4A","#BE2A4A","#5EB4AB","#5EB4AB","#5EB4AB","#5EB4AB","#5EB4AB","#5EB4AB","#5EB4AB","#ED6346","#4C71B2","#FDAA5F","#FEC977","#FEC977","#FEE491","#FFF6B0","#F8FCB4","#F8FCB4","#A7DBA4","#A7DBA4","#A7DBA4","#81CBA5","#E9F69D","#E9F69D","#E9F69D","#E9F69D","#4092B9","#9E0142","#5E4FA2","#5E4FA2","#5E4FA2","#F8854D","#5E4FA2","#5E4FA2","#5E4FA2","#DB474D","#CBEA9E","#BE2A4A","#BE2A4A","#BE2A4A","#BE2A4A","#BE2A4A","#BE2A4A","#5EB4AB","#5EB4AB","#5EB4AB","#5EB4AB","#5EB4AB","#5EB4AB","#5EB4AB","#ED6346","#4C71B2","#FDAA5F","#FEC977","#FEC977","#FEE491","#FFF6B0","#F8FCB4","#F8FCB4","#A7DBA4","#A7DBA4","#A7DBA4","#81CBA5","#E9F69D","#E9F69D","#E9F69D","#E9F69D","#4092B9","#9E0142","#5E4FA2","#5E4FA2","#5E4FA2","#F8854D","#5E4FA2","#5E4FA2","#5E4FA2","#DB474D","#CBEA9E"],"weight":5,"opacity":0.5,"fill":true,"fillColor":["#BE2A4A","#BE2A4A","#BE2A4A","#BE2A4A","#BE2A4A","#BE2A4A","#5EB4AB","#5EB4AB","#5EB4AB","#5EB4AB","#5EB4AB","#5EB4AB","#5EB4AB","#ED6346","#4C71B2","#FDAA5F","#FEC977","#FEC977","#FEE491","#FFF6B0","#F8FCB4","#F8FCB4","#A7DBA4","#A7DBA4","#A7DBA4","#81CBA5","#E9F69D","#E9F69D","#E9F69D","#E9F69D","#4092B9","#9E0142","#5E4FA2","#5E4FA2","#5E4FA2","#F8854D","#5E4FA2","#5E4FA2","#5E4FA2","#DB474D","#CBEA9E","#BE2A4A","#BE2A4A","#BE2A4A","#BE2A4A","#BE2A4A","#BE2A4A","#5EB4AB","#5EB4AB","#5EB4AB","#5EB4AB","#5EB4AB","#5EB4AB","#5EB4AB","#ED6346","#4C71B2","#FDAA5F","#FEC977","#FEC977","#FEE491","#FFF6B0","#F8FCB4","#F8FCB4","#A7DBA4","#A7DBA4","#A7DBA4","#81CBA5","#E9F69D","#E9F69D","#E9F69D","#E9F69D","#4092B9","#9E0142","#5E4FA2","#5E4FA2","#5E4FA2","#F8854D","#5E4FA2","#5E4FA2","#5E4FA2","#DB474D","#CBEA9E"],"fillOpacity":0.8},null,null,["Stop_id: 12 <br> Route: 126 <br> Ridership: 0","Stop_id: 13 <br> Route: 126 <br> Ridership: 0","Stop_id: 141 <br> Route: 126 <br> Ridership: 0","Stop_id: 142 <br> Route: 126 <br> Ridership: 0","Stop_id: 143 <br> Route: 126 <br> Ridership: 0","Stop_id: 144 <br> Route: 126 <br> Ridership: 0","Stop_id: 2701 <br> Route: 79 <br> Ridership: 0","Stop_id: 2703 <br> Route: 79 <br> Ridership: 0","Stop_id: 2708 <br> Route: 79 <br> Ridership: 0","Stop_id: 2709 <br> Route: 79 <br> Ridership: 0","Stop_id: 2712 <br> Route: 79 <br> Ridership: 0","Stop_id: 2713 <br> Route: 79 <br> Ridership: 0","Stop_id: 2714 <br> Route: 79 <br> Ridership: 0","Stop_id: 3366 <br> Route: 165 <br> Ridership: 0","Stop_id: 6557 <br> Route: 8A <br> Ridership: 0","Stop_id: 6557 <br> Route: 24 <br> Ridership: 0","Stop_id: 7293 <br> Route: 30 <br> Ridership: 0","Stop_id: 7335 <br> Route: 30 <br> Ridership: 0","Stop_id: 7723 <br> Route: 39 <br> Ridership: 0","Stop_id: 8026 <br> Route: 43 <br> Ridership: 0","Stop_id: 8429 <br> Route: 49A <br> Ridership: 0","Stop_id: 8434 <br> Route: 49A <br> Ridership: 0","Stop_id: 8550 <br> Route: 64 <br> Ridership: 0","Stop_id: 8551 <br> Route: 64 <br> Ridership: 0","Stop_id: 8558 <br> Route: 64 <br> Ridership: 0","Stop_id: 8582 <br> Route: 69 <br> Ridership: 0","Stop_id: 10371 <br> Route: 54B <br> Ridership: 0","Stop_id: 10372 <br> Route: 54B <br> Ridership: 0","Stop_id: 10376 <br> Route: 54B <br> Ridership: 0","Stop_id: 10379 <br> Route: 54B <br> Ridership: 0","Stop_id: 11639 <br> Route: 85A <br> Ridership: 0","Stop_id: 12271 <br> Route: 100 <br> Ridership: 0","Stop_id: 12706 <br> Route: N201 <br> Ridership: 0","Stop_id: 14277 <br> Route: N201 <br> Ridership: 0","Stop_id: 14279 <br> Route: N201 <br> Ridership: 0","Stop_id: 14341 <br> Route: 206 <br> Ridership: 0","Stop_id: 15072 <br> Route: N201 <br> Ridership: 0","Stop_id: 15074 <br> Route: N201 <br> Ridership: 0","Stop_id: 15103 <br> Route: N201 <br> Ridership: 0","Stop_id: 15906 <br> Route: 129 <br> Ridership: 0","Stop_id: 15917 <br> Route: 62 <br> Ridership: 0","Stop_id: 12 <br> Route: 126 <br> Ridership: 0","Stop_id: 13 <br> Route: 126 <br> Ridership: 0","Stop_id: 141 <br> Route: 126 <br> Ridership: 0","Stop_id: 142 <br> Route: 126 <br> Ridership: 0","Stop_id: 143 <br> Route: 126 <br> Ridership: 0","Stop_id: 144 <br> Route: 126 <br> Ridership: 0","Stop_id: 2701 <br> Route: 79 <br> Ridership: 0","Stop_id: 2703 <br> Route: 79 <br> Ridership: 0","Stop_id: 2708 <br> Route: 79 <br> Ridership: 0","Stop_id: 2709 <br> Route: 79 <br> Ridership: 0","Stop_id: 2712 <br> Route: 79 <br> Ridership: 0","Stop_id: 2713 <br> Route: 79 <br> Ridership: 0","Stop_id: 2714 <br> Route: 79 <br> Ridership: 0","Stop_id: 3366 <br> Route: 165 <br> Ridership: 0","Stop_id: 6557 <br> Route: 8A <br> Ridership: 0","Stop_id: 6557 <br> Route: 24 <br> Ridership: 0","Stop_id: 7293 <br> Route: 30 <br> Ridership: 0","Stop_id: 7335 <br> Route: 30 <br> Ridership: 0","Stop_id: 7723 <br> Route: 39 <br> Ridership: 0","Stop_id: 8026 <br> Route: 43 <br> Ridership: 0","Stop_id: 8429 <br> Route: 49A <br> Ridership: 0","Stop_id: 8434 <br> Route: 49A <br> Ridership: 0","Stop_id: 8550 <br> Route: 64 <br> Ridership: 0","Stop_id: 8551 <br> Route: 64 <br> Ridership: 0","Stop_id: 8558 <br> Route: 64 <br> Ridership: 0","Stop_id: 8582 <br> Route: 69 <br> Ridership: 0","Stop_id: 10371 <br> Route: 54B <br> Ridership: 0","Stop_id: 10372 <br> Route: 54B <br> Ridership: 0","Stop_id: 10376 <br> Route: 54B <br> Ridership: 0","Stop_id: 10379 <br> Route: 54B <br> Ridership: 0","Stop_id: 11639 <br> Route: 85A <br> Ridership: 0","Stop_id: 12271 <br> Route: 100 <br> Ridership: 0","Stop_id: 12706 <br> Route: N201 <br> Ridership: 0","Stop_id: 14277 <br> Route: N201 <br> Ridership: 0","Stop_id: 14279 <br> Route: N201 <br> Ridership: 0","Stop_id: 14341 <br> Route: 206 <br> Ridership: 0","Stop_id: 15072 <br> Route: N201 <br> Ridership: 0","Stop_id: 15074 <br> Route: N201 <br> Ridership: 0","Stop_id: 15103 <br> Route: N201 <br> Ridership: 0","Stop_id: 15906 <br> Route: 129 <br> Ridership: 0","Stop_id: 15917 <br> Route: 62 <br> Ridership: 0"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addLegend","args":[{"colors":["#9E0142","#BE2A4A","#DB474D","#ED6346","#F8854D","#FDAA5F","#FEC977","#FEE491","#FFF6B0","#F8FCB4","#E9F69D","#CBEA9E","#A7DBA4","#81CBA5","#5EB4AB","#4092B9","#4C71B2","#5E4FA2"],"labels":["100","126","129","165","206","24","30","39","43","49A","54B","62","64","69","79","85A","8A","N201"],"na_color":null,"na_label":"NA","opacity":1,"position":"topright","type":"factor","title":"Routes","extra":null,"layerId":null,"className":"info legend","group":null}]}],"limits":{"lat":[41.6642564,42.06180301],"lng":[-87.84630803,-87.53946008]}},"evals":[],"jsHooks":[]}</script>
 </div>
-<div id="table-3-top-10-most-trafficked-routes" class="section level5" style="margin-top:100px;">
+<div style="margin-top:100px;">
+</div>
+<div id="table-3-top-10-most-trafficked-routes" class="section level5">
 <h5>Table 3 Top 10 most trafficked routes</h5>
 <div style="margin-bottom:20px;">
 
@@ -1303,6 +1307,7 @@ total
 </table>
 </div>
 <div style="margin-top:100px;">
+</div>
 <div id="figure-3-stops-segmentation-based-on-ridership" class="section level5">
 <h5>Figure 3 Stops segmentation based on Ridership</h5>
 <div style="margin-bottom:20px;">

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Object Detection | Jane Li</title>
+    <link>/tag/object-detection/</link>
+      <atom:link href="/tag/object-detection/index.xml" rel="self" type="application/rss+xml" />
+    <description>Object Detection</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 01 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Object Detection</title>
+      <link>/tag/object-detection/</link>
+    </image>
+    
+    <item>
+      <title>Predicting Sale Price Using Images</title>
+      <link>/post/savvy_seller/</link>
+      <pubDate>Tue, 01 Oct 2019 00:00:00 +0000</pubDate>
+      <guid>/post/savvy_seller/</guid>
+      <description>&lt;p&gt;I am a fashion lover and environmentalist at heart. Buying and selling pre-loved clothes is a great way to reduce our carbon footprint yet still manage to stay hip and look good. Clothing resale is a 28 million dollars market and will reach 51 billion dollars in the next five years. Online marketplaces such as Etsy and Poshmark provide an easy way for people to sell and buy clothes.  Usually, at those online marketplaces, to sell, users simply upload a photo, enter the brand name, and enter an asking price. But it can hard for users to know how much their items are actually worth, and these websites do not provide price suggestions.&lt;/p&gt;
+&lt;p&gt;In this post, I develop an app, Savvy Seller, to &lt;strong&gt;predict clothing sale prices based on a photo and brand name of an item&lt;/strong&gt;. The goal is to help clothing resellers better price their items to improve sale performance at online marketplaces. Savvy Seller requires only a photo of the sale item and its brand name from users’ end, but increased price prediction accuracy by 30% comparing with traditional models.&lt;/p&gt;
+&lt;h3 id=&#34;steps&#34;&gt;Steps&lt;/h3&gt;
+&lt;p&gt;1.Use AWS to scrape daily sale histories from online clothing resale marketplaces. Each sale history includes photos of the item, brand name, as well as final sale prices.&lt;/p&gt;
+&lt;p&gt;2.Use VGG16 image classifier to find similiar looking items. Top layer of VGG16 was choppd off, this will skip the final classification step. All images were converted to vectors through VGG16. When user upload a photo, VGG search for similar-looking item by using cosine similiarity between image vectors.&lt;/p&gt;
+&lt;p&gt;3.To improve matching accuracy, YOLO object detection framewwork was used to autimatically identiy and crop the human and clothes in the images. Feed cropped the images to VGG16 has greatly improved model accuracy.&lt;/p&gt;
+&lt;p&gt;4.Classify more than 1600 brands in my database into 5 tiers using k-means clustering based on mean sale price if each brand.&lt;/p&gt;
+&lt;p&gt;5.Final Pipeline:
+when user upload a photo and enter the brand name of the clothes, Savvy seller will first identify the human/clothes in the image and automatically crop out the background, then feed the cropped images to the headless VGG16 model and convert that specific images into vector. After that, Savvy Seller will search for images that were from the same brand tires as entered brand to find most similar looking items in the database. Cosine similarity between images vectors to find the most similar looking items that were sold in the last 2 weeks and return the average sale price.&lt;/p&gt;
+&lt;p&gt;For detailed code, please check out my 
+&lt;a href=&#34;https://github.com/enjieli/Savvy_Seller&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;github repo&lt;/a&gt;, or click on the video below.
+
+&lt;a href=&#34;https://youtu.be/bLUPUxkJRuI&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;img src=&#34;https://img.youtube.com/vi/bLUPUxkJRuI/maxresdefault.jpg&#34; alt=&#34;watch this video&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

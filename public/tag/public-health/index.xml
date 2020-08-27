@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Public Health | Jane Li</title>
+    <link>/tag/public-health/</link>
+      <atom:link href="/tag/public-health/index.xml" rel="self" type="application/rss+xml" />
+    <description>Public Health</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 31 Jul 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Public Health</title>
+      <link>/tag/public-health/</link>
+    </image>
+    
+    <item>
+      <title>Measure Social Equality and Public Health</title>
+      <link>/project/salsa/</link>
+      <pubDate>Wed, 31 Jul 2019 00:00:00 +0000</pubDate>
+      <guid>/project/salsa/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

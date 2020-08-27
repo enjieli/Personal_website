@@ -1,0 +1,1602 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Jane Li">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="In this post, I used Open data from Chicago Transit Authority (CTA) to segmente routes based on ridership, and developed a visualization dashboard to identify stops with inbanalced boardings and alightings and stops with the most ridership.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/post/2019-11-23-r-rmarkdown.utf8/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+
+  
+  
+  
+  
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+        
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+    
+      
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+    
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/post/2019-11-23-r-rmarkdown.utf8/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="Jane Li">
+  <meta property="og:url" content="/post/2019-11-23-r-rmarkdown.utf8/">
+  <meta property="og:title" content="Visualizing Chicago Public Transit Ridership | Jane Li">
+  <meta property="og:description" content="In this post, I used Open data from Chicago Transit Authority (CTA) to segmente routes based on ridership, and developed a visualization dashboard to identify stops with inbanalced boardings and alightings and stops with the most ridership."><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
+  <meta property="twitter:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2019-11-23T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2019-11-23T00:00:00&#43;00:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/post/2019-11-23-r-rmarkdown.utf8/"
+  },
+  "headline": "Visualizing Chicago Public Transit Ridership",
+  
+  "datePublished": "2019-11-23T00:00:00Z",
+  "dateModified": "2019-11-23T00:00:00Z",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Jane Li"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Jane Li",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png"
+    }
+  },
+  "description": "In this post, I used Open data from Chicago Transit Authority (CTA) to segmente routes based on ridership, and developed a visualization dashboard to identify stops with inbanalced boardings and alightings and stops with the most ridership."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Visualizing Chicago Public Transit Ridership | Jane Li</title>
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class=" ">
+
+  
+  
+  
+    <script>window.staDarkLightChooser = true;</script>
+  
+  
+    <script>const isSiteThemeDark = false;</script>
+  
+  
+  <script src="/js/load-theme.js"></script>
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Jane Li</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Jane Li</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/about"><span>About Me</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#posts"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/media/Jane_Li_resume.pdf"><span>Resume</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Visualizing Chicago Public Transit Ridership</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Nov 23, 2019
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    5 min read
+  </span>
+  
+
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/data-visualization/">Data Visualization</a>, <a href="/category/spatail-analysis/">Spatail analysis</a></span>
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>In this post, I used Open data from Chicago Transit Authority (CTA) to segmente routes based on ridership, and developed a visualization dashboard to identify stops with inbanalced boardings and alightings and stops with the most ridership. Get the raw data 
+<a href="https://raw.githubusercontent.com/enjieli/CAT-data-demo/master/app/CTA_-_Ridership_-_Avg._Weekday_Bus_Stop_Boardings_in_October_2012.csv" target="_blank" rel="noopener">here</a>.</p>
+<h3 id="load-package">load package</h3>
+<pre><code class="language-r">rm(list=ls())
+library(knitr)
+library(tidyverse)
+library(stringr)
+library(sf)
+library(kableExtra)
+library(ggmap)
+library(RColorBrewer)
+library(shiny)
+library(viridis)
+library(leaflet)
+
+
+raw_df&lt;- read_csv(&quot;CTA_-_Ridership_-_Avg._Weekday_Bus_Stop_Boardings_in_October_2012.csv&quot;)
+
+#clean raw_df 
+raw_df&lt;- 
+  raw_df %&gt;%
+  mutate( location= str_replace_all(location, &quot;[()]&quot;, &quot;&quot;)) %&gt;%
+  separate(location, c(&quot;lat&quot;, &quot;lon&quot;), sep = &quot;,&quot;) %&gt;%
+  mutate( lat =as.numeric(lat)) %&gt;%
+  mutate( lon= as.numeric(lon))
+</code></pre>
+</div>
+<div style="margin-top:50px;">
+##### Table 1 Routes with most stops
+<div style="margin-bottom:20px;">
+</div>
+<pre><code class="language-r">#What is the route with the most stops?
+routes &lt;- 
+  raw_df %&gt;%
+  separate_rows(routes) %&gt;%
+  group_by(routes) %&gt;%
+  summarise(Number_of_stops=n_distinct(stop_id)) %&gt;%
+  arrange(desc(Number_of_stops))
+
+kable(routes[1:10, ],  booktabs = T) %&gt;%
+  kable_styling(bootstrap_options = &quot;striped&quot;, full_width = F, position = &quot;left&quot;)
+</code></pre>
+<table class="table table-striped" style="width: auto !important; ">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> routes </th>
+   <th style="text-align:right;"> Number_of_stops </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 9 </td>
+   <td style="text-align:right;"> 273 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 49 </td>
+   <td style="text-align:right;"> 242 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 151 </td>
+   <td style="text-align:right;"> 221 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 8 </td>
+   <td style="text-align:right;"> 220 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 3 </td>
+   <td style="text-align:right;"> 213 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 82 </td>
+   <td style="text-align:right;"> 209 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 62 </td>
+   <td style="text-align:right;"> 206 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 79 </td>
+   <td style="text-align:right;"> 206 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> N5 </td>
+   <td style="text-align:right;"> 206 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 4 </td>
+   <td style="text-align:right;"> 202 </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<div style="margin-top:100px;">
+##### Table 2 Stops with the most routes
+<div style="margin-bottom:20px;">
+</div>
+<pre><code class="language-r">#What is the stop with the most routes?
+stops &lt;- 
+  raw_df %&gt;%
+  mutate(number_of_routes = str_count(routes, &quot;\\d+&quot;)) %&gt;%
+  arrange(desc(number_of_routes)) %&gt;%
+  select(stop_id,on_street, cross_street, routes, number_of_routes)
+
+kable(stops[1:10, ], booktabs = T) %&gt;%
+  kable_styling(bootstrap_options = &quot;striped&quot;, full_width = F, position = &quot;left&quot;)
+</code></pre>
+<table class="table table-striped" style="width: auto !important; ">
+ <thead>
+  <tr>
+   <th style="text-align:right;"> stop_id </th>
+   <th style="text-align:left;"> on_street </th>
+   <th style="text-align:left;"> cross_street </th>
+   <th style="text-align:left;"> routes </th>
+   <th style="text-align:right;"> number_of_routes </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1106 </td>
+   <td style="text-align:left;"> MICHIGAN </td>
+   <td style="text-align:left;"> WASHINGTON </td>
+   <td style="text-align:left;"> 3,4,19,20,26,60,N66,124,143,145,147,148,151,157 </td>
+   <td style="text-align:right;"> 14 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:left;"> MICHIGAN </td>
+   <td style="text-align:left;"> betw. VAN BUREN &amp; CONGRES </td>
+   <td style="text-align:left;"> 1,3,4,7,J14,26,X28,126,129,132,143,147,148 </td>
+   <td style="text-align:right;"> 13 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1103 </td>
+   <td style="text-align:left;"> MICHIGAN </td>
+   <td style="text-align:left;"> HUBBARD (WRIGLEY BLDG.) </td>
+   <td style="text-align:left;"> 2,3,10,26,N66,143,144,145,146,147,148,151,157 </td>
+   <td style="text-align:right;"> 13 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1120 </td>
+   <td style="text-align:left;"> MICHIGAN </td>
+   <td style="text-align:left;"> SOUTH WATER </td>
+   <td style="text-align:left;"> 3,6,20,26,N66,143,144,145,146,147,148,151,157 </td>
+   <td style="text-align:right;"> 13 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1122 </td>
+   <td style="text-align:left;"> MICHIGAN </td>
+   <td style="text-align:left;"> HUBBARD (TRIBUNE BLDG.) </td>
+   <td style="text-align:left;"> 2,3,10,26,N66,143,144,145,146,147,148,151,157 </td>
+   <td style="text-align:right;"> 13 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1100 </td>
+   <td style="text-align:left;"> MICHIGAN </td>
+   <td style="text-align:left;"> ERIE </td>
+   <td style="text-align:left;"> 3,10,26,33,125,143,144,145,146,147,148,151 </td>
+   <td style="text-align:right;"> 12 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1101 </td>
+   <td style="text-align:left;"> MICHIGAN </td>
+   <td style="text-align:left;"> OHIO </td>
+   <td style="text-align:left;"> 2,3,10,26,143,144,145,146,147,148,151,157 </td>
+   <td style="text-align:right;"> 12 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1102 </td>
+   <td style="text-align:left;"> MICHIGAN </td>
+   <td style="text-align:left;"> ILLINOIS </td>
+   <td style="text-align:left;"> 2,3,10,26,143,144,145,146,147,148,151,157 </td>
+   <td style="text-align:right;"> 12 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1105 </td>
+   <td style="text-align:left;"> MICHIGAN </td>
+   <td style="text-align:left;"> betw. LAKE &amp; RANDOLPH </td>
+   <td style="text-align:left;"> 3,4,19,26,N66,124,143,145,147,148,151,157 </td>
+   <td style="text-align:right;"> 12 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1123 </td>
+   <td style="text-align:left;"> MICHIGAN </td>
+   <td style="text-align:left;"> GRAND </td>
+   <td style="text-align:left;"> 2,3,10,26,143,144,145,146,147,148,151,157 </td>
+   <td style="text-align:right;"> 12 </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<div style="margin-top:100px;">
+##### Figure 1 Stop Density Map
+<div style="margin-bottom:20px;">
+</div>
+<pre><code class="language-r">#get chicago basemap 
+chi_bb &lt;- c(left = -87.88430,
+            bottom = 41.64416,
+            right = -87.52570,
+            top = 42.06470)
+
+chicago_stamen &lt;- get_stamenmap(bbox = chi_bb, zoom = 11, maptype = 'toner-lite')
+
+# calculate stop density
+df_sp &lt;- 
+  st_as_sf(raw_df, coords = c(&quot;lon&quot;, &quot;lat&quot;), crs = 4326) %&gt;%
+  select(-c('month_beginning','daytype'))
+
+#plot them together
+stops_density_map &lt;- 
+  ggmap(chicago_stamen)+ 
+  stat_density_2d(data = raw_df,
+                  aes(x = lon, y = lat, fill = stat(level)),
+                  alpha = .4,
+                  bins = 5,
+                  geom = &quot;polygon&quot;) +
+  scale_fill_gradientn('number of stops',colors = brewer.pal(5, &quot;YlOrRd&quot;)) +
+  geom_sf(data = df_sp, inherit.aes = FALSE,color='black',
+          size = 0.2, alpha=0.1,show.legend = 'point') 
+
+stops_density_map
+</code></pre>
+<p><img src="2019-11-23-r-rmarkdown_files/figure-html/chicago_basemap-1.png" width="672" /></p>
+</div>
+<div style="margin-top:100px;">
+##### Figure 2 Map of stops with no ridership
+<div style="margin-bottom:20px;">
+</div>
+<pre><code class="language-r">#tranform to long dataframe
+stops_route &lt;- 
+  raw_df %&gt;%
+  mutate(number_of_routes = str_count(routes, &quot;\\d+&quot;)) %&gt;%
+  separate_rows(routes) %&gt;%
+  mutate( boardings = boardings/number_of_routes) %&gt;%
+  mutate(alightings =  alightings/ number_of_routes)  %&gt;%
+  select( -c(number_of_routes,daytype,month_beginning)) %&gt;%
+  gather(&quot;boardings&quot;, &quot;alightings&quot;, key = type, value = ridership)
+
+#make it sf object 
+stops_route_sp &lt;- 
+  st_as_sf(stops_route, coords = c(&quot;lon&quot;, &quot;lat&quot;), crs = 4326) 
+
+#stops with no boardings and alightings
+#transform stops_no_ridership to spatial dataframe
+
+stops_no_ridership_sp &lt;-
+  stops_route_sp %&gt;%
+  filter (ridership==0) %&gt;%
+  group_by(stop_id, routes) %&gt;%
+  filter(n()&gt;1)
+
+#n_distinct(stops_no_ridership_sp$stop_id)
+#n_distinct(stops_no_ridership_sp$routes)
+
+#set color scheme
+pal &lt;- colorFactor(palette = 'Spectral', domain =stops_no_ridership_sp$routes)
+
+#plot
+leaflet(stops_no_ridership_sp) %&gt;%
+  setView(lng=-87.705, lat=41.85443, zoom = 10) %&gt;% 
+  addProviderTiles(providers$Stamen.Toner,group=&quot;Stamen Toner&quot;) %&gt;%
+  addCircleMarkers( color = ~pal(routes),
+                        radius = ~ ifelse(ridership &lt;=100, 6,
+                                           ifelse((ridership &lt;=1000),10,15)),
+                        stroke = FALSE, 
+                        fillOpacity = 0.8,
+                        popup = ~paste(&quot;Stop_id:&quot;, stop_id, 
+                          &quot;&lt;br&gt;&quot;, &quot;Route:&quot;, routes, 
+                          &quot;&lt;br&gt;&quot;, &quot;Ridership:&quot;, ridership)) %&gt;%
+      addLegend(&quot;topright&quot;, pal = pal, opacity = 1,
+                values = ~routes, 
+                title = &quot;Routes&quot;)
+</code></pre>
+<p>preserve4a61ef77b81b872a</p>
+</div>
+<div style="margin-top:100px;">
+##### Table 3  Top 10 most trafficked routes  
+<div style="margin-bottom:20px;">
+</div>
+<pre><code class="language-r">#routes by boarding and alighting ridership 
+ridership_by_routes&lt;- 
+  stops_route %&gt;%
+  filter(!is.na(routes)) %&gt;%
+  group_by(routes, type) %&gt;%
+  summarise(n=sum(ridership)) %&gt;%
+  spread(type, n) %&gt;%
+  mutate(total =boardings+ alightings) %&gt;%
+  arrange(desc(total))
+
+kable(ridership_by_routes[1:10, ], booktabs = T) %&gt;%
+  kable_styling(bootstrap_options = &quot;striped&quot;, full_width = F, position = &quot;left&quot;)
+</code></pre>
+<table class="table table-striped" style="width: auto !important; ">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> routes </th>
+   <th style="text-align:right;"> alightings </th>
+   <th style="text-align:right;"> boardings </th>
+   <th style="text-align:right;"> total </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 9 </td>
+   <td style="text-align:right;"> 33119.68 </td>
+   <td style="text-align:right;"> 33704.75 </td>
+   <td style="text-align:right;"> 66824.43 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 79 </td>
+   <td style="text-align:right;"> 31520.93 </td>
+   <td style="text-align:right;"> 31741.53 </td>
+   <td style="text-align:right;"> 63262.47 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 49 </td>
+   <td style="text-align:right;"> 29305.87 </td>
+   <td style="text-align:right;"> 29500.68 </td>
+   <td style="text-align:right;"> 58806.55 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 66 </td>
+   <td style="text-align:right;"> 26494.62 </td>
+   <td style="text-align:right;"> 26566.83 </td>
+   <td style="text-align:right;"> 53061.45 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 77 </td>
+   <td style="text-align:right;"> 24193.93 </td>
+   <td style="text-align:right;"> 22996.52 </td>
+   <td style="text-align:right;"> 47190.45 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 8 </td>
+   <td style="text-align:right;"> 23579.65 </td>
+   <td style="text-align:right;"> 23555.37 </td>
+   <td style="text-align:right;"> 47135.02 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 53 </td>
+   <td style="text-align:right;"> 23540.77 </td>
+   <td style="text-align:right;"> 23586.90 </td>
+   <td style="text-align:right;"> 47127.67 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 4 </td>
+   <td style="text-align:right;"> 23855.90 </td>
+   <td style="text-align:right;"> 22107.08 </td>
+   <td style="text-align:right;"> 45962.98 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 82 </td>
+   <td style="text-align:right;"> 22379.65 </td>
+   <td style="text-align:right;"> 22005.20 </td>
+   <td style="text-align:right;"> 44384.85 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 63 </td>
+   <td style="text-align:right;"> 21785.53 </td>
+   <td style="text-align:right;"> 21732.61 </td>
+   <td style="text-align:right;"> 43518.14 </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<div style="margin-top:100px;">
+##### Figure 3 Stops segmentation based on Ridership
+<div style="margin-bottom:20px;">
+</div>
+<pre><code class="language-r">#reshape df with only lat, lon, boardings, and alights columns
+#scale the dataset
+km_df_scale&lt;- 
+  raw_df%&gt;%
+  select(stop_id,boardings,alightings) %&gt;%
+  column_to_rownames(var=&quot;stop_id&quot;) %&gt;%
+  scale()
+</code></pre>
+<pre><code class="language-r">library(factoextra)
+set.seed(123)
+# function to compute total within-cluster sum of square 
+wss &lt;- function(k) {
+  kmeans(km_df_scale, k,iter.max = 100, nstart = 25 )$tot.withinss
+}
+
+# Compute and plot wss for k = 1 to k = 15
+k.values &lt;- 1:15
+
+# extract wss for 2-15 clusters
+wss_values &lt;- map_dbl(k.values, wss)
+
+#plot optimal K
+plot(k.values, wss_values,
+       type=&quot;b&quot;, pch = 19, frame = FALSE, 
+       xlab=&quot;Number of clusters K&quot;,
+       ylab=&quot;Total within-clusters sum of squares&quot;)
+</code></pre>
+<p><img src="2019-11-23-r-rmarkdown_files/figure-html/determin_k-1.png" width="672" /></p>
+<pre><code class="language-r">set.seed(123)
+
+#kmeans with 3 clusters
+km.res &lt;- kmeans(km_df_scale, 3, iter.max = 100, nstart = 25)
+
+#join with raw df
+dd &lt;- cbind(raw_df, cluster = km.res$cluster)
+
+#plot
+dd %&gt;%
+  ggplot(aes(x=boardings, y= alightings, color= factor(cluster))) +
+  geom_point() +
+  geom_abline(aes(intercept = 0 , slope= 1 ), linetype= &quot;dashed&quot;) + 
+  scale_x_continuous(trans = 'log') +
+  scale_y_continuous(trans = 'log') +
+  scale_size(range = c(0.5, 5))  +
+  scale_color_brewer(&quot;&quot;, palette = &quot;Set1&quot;, 
+                     labels = c(&quot;Stops with little ridership&quot;, 
+                                &quot;Stops with most ridership&quot;, 
+                                &quot;Stops with medium ridership&quot;)) +
+  theme_bw() +
+  xlab(&quot;Boardings&quot;) +
+  ylab(&quot;Alightings&quot;) 
+</code></pre>
+<p><img src="2019-11-23-r-rmarkdown_files/figure-html/kmeans-1.png" width="672" /></p>
+<pre><code class="language-r">#visualize on a map
+m = leaflet() %&gt;%
+    setView(lng=-87.705, lat=41.85443, zoom = 10) %&gt;% 
+    addProviderTiles(providers$Stamen.Toner,group=&quot;Stamen Toner&quot;) 
+
+# subset into clusters 
+data_filterlist = list(cluster_1 = subset(dd, cluster == 1),
+                cluster_2 = subset(dd, cluster == 2),
+                cluster_3 = subset(dd, cluster == 3))
+
+# Remember we also had these groups associated with each variable? Let's put them in a list too:
+layerlist = c(&quot;Stops with little ridership&quot;, &quot;Stops with most ridership&quot;, &quot;Stops with medium ridership&quot;)
+
+# We can keep that same color variable:
+colorFactors = colorFactor(c('red', 'blue', 'seagreen'), domain=dd$cluster)
+
+# Now we have our loop - each time through the loop, it is adding our markers to the map object:
+
+for (i in 1:length(data_filterlist)){
+  m = addCircleMarkers(m, 
+                       lng=data_filterlist[[i]]$lon, 
+                       lat=data_filterlist[[i]]$lat, 
+                       radius=1,
+                       popup= paste( &quot;Stop_id:&quot;,data_filterlist[[i]]$stop_id,  
+                                     &quot;&lt;br&gt;&quot;, &quot;Routes:&quot;, data_filterlist[[i]]$routes,
+                                     &quot;&lt;br&gt;&quot;, &quot;Boardings:&quot;,data_filterlist[[i]]$boardings,
+                                     &quot;&lt;br&gt;&quot;, &quot;Alightings:&quot;,data_filterlist[[i]]$alightings),
+                       stroke = FALSE, fillOpacity = 0.75,
+                       color = colorFactors(data_filterlist[[i]]$cluster),
+                       group = layerlist[i]
+  )
+
+}
+
+
+m = addLayersControl(m, overlayGroups = layerlist, options = layersControlOptions(collapsed = FALSE))
+
+m
+</code></pre>
+<p>preserve5a6bee482dfb03cc</p>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/r-markdown/">R Markdown</a>
+  
+  <a class="badge badge-light" href="/tag/spatial-maps/">spatial maps</a>
+  
+  <a class="badge badge-light" href="/tag/segmentation/">segmentation</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/post/2019-11-23-r-rmarkdown.utf8/&amp;text=Visualizing%20Chicago%20Public%20Transit%20Ridership" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/post/2019-11-23-r-rmarkdown.utf8/&amp;t=Visualizing%20Chicago%20Public%20Transit%20Ridership" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Visualizing%20Chicago%20Public%20Transit%20Ridership&amp;body=/post/2019-11-23-r-rmarkdown.utf8/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/post/2019-11-23-r-rmarkdown.utf8/&amp;title=Visualizing%20Chicago%20Public%20Transit%20Ridership" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Visualizing%20Chicago%20Public%20Transit%20Ridership%20/post/2019-11-23-r-rmarkdown.utf8/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/post/2019-11-23-r-rmarkdown.utf8/&amp;title=Visualizing%20Chicago%20Public%20Transit%20Ridership" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/author/jane-li/avatar_hu116ba7bcbeb2fdda542527932e0f787c_311654_270x270_fill_q90_lanczos_center.jpg" alt="Jane Li">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="/">Jane Li</a></h5>
+        <h6 class="card-subtitle">Senior Data Scientist at Paramount Pictures</h6>
+        
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/enjieli" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/enjie-jane-li-a7425b71/" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/Enjieli" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=cjQoGxMAAAAJ&amp;hl=en" target="_blank" rel="noopener">
+        <i class="fas fa-graduation-cap"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/jane.enjieli@gmail.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/2019-11-23-r-rmarkdown.knit/">Visualizing Chicago Public Transit Ridership</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js" integrity="sha512-7t8APmYpzEsZP7CYoA7RfMPV9Bb+PJHa9x2WiUnDXZx3XHveuyWUtvNOexhkierl5flZ3tr92dP1mMS+SGlD+A==" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/latex.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.3b2b658c61ebd725bd5fc606c89fe44c.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+       &middot; 
+      <a href="/terms/">Terms</a>
+    
+  </p>
+  
+
+  <p class="powered-by">
+    
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    Published with
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic Website Builder</a>
+    
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

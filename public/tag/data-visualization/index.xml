@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Data Visualization | Jane Li</title>
+    <link>/tag/data-visualization/</link>
+      <atom:link href="/tag/data-visualization/index.xml" rel="self" type="application/rss+xml" />
+    <description>Data Visualization</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 20 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Data Visualization</title>
+      <link>/tag/data-visualization/</link>
+    </image>
+    
+    <item>
+      <title>How Busy Are Your Bus Routes?</title>
+      <link>/project/chicago_transit/</link>
+      <pubDate>Sun, 20 Oct 2019 00:00:00 +0000</pubDate>
+      <guid>/project/chicago_transit/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Where are the reptiles and amphibians?</title>
+      <link>/project/snake_compare/</link>
+      <pubDate>Sat, 10 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>/project/snake_compare/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Measure Social Equality and Public Health</title>
+      <link>/project/salsa/</link>
+      <pubDate>Wed, 31 Jul 2019 00:00:00 +0000</pubDate>
+      <guid>/project/salsa/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Find Your Neighborhood Type in LA</title>
+      <link>/project/clustering_app/</link>
+      <pubDate>Thu, 20 Jun 2019 00:00:00 +0000</pubDate>
+      <guid>/project/clustering_app/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

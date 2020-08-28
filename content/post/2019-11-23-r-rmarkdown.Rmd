@@ -1,13 +1,22 @@
 ---
 title: "Visualizing Chicago Public Transit Ridership"
-date: 2019-11-23
-categories: ["Data Visualization","Spatial Analysis"]
-tags: ["R Markdown", "spatial maps", "segmentation"]
+date: '2019-11-23'
+tags:
+- R Markdown
+- spatial maps
+- segmentation
+categories:
+- Data Visualization
+- Spatial Analysis
 ---
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+# For all practicle purposes this should always be FALSE 
+knitr::opts_chunk$set(widgetframe_self_contained = FALSE) # default = FALSE
+
+# For all practicle purposes this should always be TRUE 
+knitr::opts_chunk$set(widgetframe_isolate_widgets = TRUE) # default = TRUE
 ```
 
 In this post, I used Open data from Chicago Transit Authority (CTA) to segment routes based on ridership, and developed a visualization dashboard to identify stops with unbalanced boardings and alightings and stops with the most ridership. Get the raw data [here](https://raw.githubusercontent.com/enjieli/CAT-data-demo/master/app/CTA_-_Ridership_-_Avg._Weekday_Bus_Stop_Boardings_in_October_2012.csv).
@@ -24,10 +33,17 @@ library(RColorBrewer)
 library(viridis)
 library(leaflet)
 library(ggmap)
+library(widgetframe)
+```
 
+
+
+```{r echo = TRUE, warning=FALSE, message=FALSE}
 
 raw_df<- read_csv("CTA_-_Ridership_-_Avg._Weekday_Bus_Stop_Boardings_in_October_2012.csv")
+```
 
+```{r echo = TRUE, warning=FALSE, message=FALSE}
 #clean raw_df 
 raw_df<- 
   raw_df %>%
@@ -37,13 +53,16 @@ raw_df<-
   mutate( lon= as.numeric(lon))
 ```
 
+
 </div>
 <div style="margin-top:50px;">
 ##### Table 1 Routes with most stops
 <div style="margin-bottom:20px;">
 </div>
 
+
 ```{r echo = TRUE, warning=FALSE, message=FALSE,results = 'asis'}
+
 #What is the route with the most stops?
 routes <- 
   raw_df %>%
@@ -54,7 +73,10 @@ routes <-
 
 kable(routes[1:10, ],  booktabs = T) %>%
   kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+
 ```
+
 
 </div>
 <div style="margin-top:100px;">
@@ -149,7 +171,7 @@ stops_no_ridership_sp <-
 pal <- colorFactor(palette = 'Spectral', domain =stops_no_ridership_sp$routes)
 
 #plot
-leaflet(stops_no_ridership_sp) %>%
+p1<-leaflet(stops_no_ridership_sp) %>%
   setView(lng=-87.705, lat=41.85443, zoom = 10) %>% 
   addProviderTiles(providers$Stamen.Toner,group="Stamen Toner") %>%
   addCircleMarkers( color = ~pal(routes),
@@ -163,6 +185,7 @@ leaflet(stops_no_ridership_sp) %>%
       addLegend("topright", pal = pal, opacity = 1,
                 values = ~routes, 
                 title = "Routes")
+frameWidget(p1, width='100%')
 
 ```
 
@@ -290,9 +313,10 @@ for (i in 1:length(data_filterlist)){
 }
 
 
-m = addLayersControl(m, overlayGroups = layerlist, options = layersControlOptions(collapsed = FALSE))
+p2<- addLayersControl(m, overlayGroups = layerlist, options = layersControlOptions(collapsed = FALSE))
 
-m
+frameWidget(p2, width='100%')
+
 ```
 
 

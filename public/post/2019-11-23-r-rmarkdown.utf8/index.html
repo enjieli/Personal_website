@@ -30,7 +30,7 @@
   
     
   
-  <meta name="description" content="In this post, I used Open data from Chicago Transit Authority (CTA) to segmente routes based on ridership, and developed a visualization dashboard to identify stops with inbanalced boardings and alightings and stops with the most ridership.">
+  <meta name="description" content="In this post, I used Open data from Chicago Transit Authority (CTA) to segment routes based on ridership, and developed a visualization dashboard to identify stops with unbalanced boardings and alightings and stops with the most ridership.">
 
   
   <link rel="alternate" hreflang="en-us" href="/post/2019-11-23-r-rmarkdown.utf8/">
@@ -256,7 +256,7 @@
   <meta property="og:site_name" content="Jane Li">
   <meta property="og:url" content="/post/2019-11-23-r-rmarkdown.utf8/">
   <meta property="og:title" content="Visualizing Chicago Public Transit Ridership | Jane Li">
-  <meta property="og:description" content="In this post, I used Open data from Chicago Transit Authority (CTA) to segmente routes based on ridership, and developed a visualization dashboard to identify stops with inbanalced boardings and alightings and stops with the most ridership."><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
+  <meta property="og:description" content="In this post, I used Open data from Chicago Transit Authority (CTA) to segment routes based on ridership, and developed a visualization dashboard to identify stops with unbalanced boardings and alightings and stops with the most ridership."><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
   <meta property="twitter:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
     
@@ -306,7 +306,7 @@
       "url": "/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png"
     }
   },
-  "description": "In this post, I used Open data from Chicago Transit Authority (CTA) to segmente routes based on ridership, and developed a visualization dashboard to identify stops with inbanalced boardings and alightings and stops with the most ridership."
+  "description": "In this post, I used Open data from Chicago Transit Authority (CTA) to segment routes based on ridership, and developed a visualization dashboard to identify stops with unbalanced boardings and alightings and stops with the most ridership."
 }
 </script>
 
@@ -653,7 +653,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-categories">
-    <i class="fas fa-folder mr-1"></i><a href="/category/data-visualization/">Data Visualization</a>, <a href="/category/spatail-analysis/">Spatail analysis</a></span>
+    <i class="fas fa-folder mr-1"></i><a href="/category/data-visualization/">Data Visualization</a>, <a href="/category/spatial-analysis/">Spatial Analysis</a></span>
   
 
 </div>
@@ -681,25 +681,22 @@
   <div class="article-container">
 
     <div class="article-style">
-      <p>In this post, I used Open data from Chicago Transit Authority (CTA) to segmente routes based on ridership, and developed a visualization dashboard to identify stops with inbanalced boardings and alightings and stops with the most ridership. Get the raw data 
+      <p>In this post, I used Open data from Chicago Transit Authority (CTA) to segment routes based on ridership, and developed a visualization dashboard to identify stops with unbalanced boardings and alightings and stops with the most ridership. Get the raw data 
 <a href="https://raw.githubusercontent.com/enjieli/CAT-data-demo/master/app/CTA_-_Ridership_-_Avg._Weekday_Bus_Stop_Boardings_in_October_2012.csv" target="_blank" rel="noopener">here</a>.</p>
 <h3 id="load-package">load package</h3>
-<pre><code class="language-r">rm(list=ls())
-library(knitr)
+<pre><code class="language-r">library(knitr)
 library(tidyverse)
 library(stringr)
 library(sf)
 library(kableExtra)
-library(ggmap)
 library(RColorBrewer)
-library(shiny)
 library(viridis)
 library(leaflet)
-
-
-raw_df&lt;- read_csv(&quot;CTA_-_Ridership_-_Avg._Weekday_Bus_Stop_Boardings_in_October_2012.csv&quot;)
-
-#clean raw_df 
+library(ggmap)
+</code></pre>
+<pre><code class="language-r">raw_df&lt;- read_csv(&quot;CTA_-_Ridership_-_Avg._Weekday_Bus_Stop_Boardings_in_October_2012.csv&quot;)
+</code></pre>
+<pre><code class="language-r">#clean raw_df 
 raw_df&lt;- 
   raw_df %&gt;%
   mutate( location= str_replace_all(location, &quot;[()]&quot;, &quot;&quot;)) %&gt;%
@@ -954,7 +951,7 @@ leaflet(stops_no_ridership_sp) %&gt;%
                 values = ~routes, 
                 title = &quot;Routes&quot;)
 </code></pre>
-<p>preserve4a61ef77b81b872a</p>
+<p>preservee545f253dae42c11</p>
 </div>
 <div style="margin-top:100px;">
 ##### Table 3  Top 10 most trafficked routes  
@@ -1103,6 +1100,10 @@ dd %&gt;%
   ylab(&quot;Alightings&quot;) 
 </code></pre>
 <p><img src="2019-11-23-r-rmarkdown_files/figure-html/kmeans-1.png" width="672" /></p>
+<pre><code class="language-r">library(widgetframe)
+</code></pre>
+<pre><code>## Loading required package: htmlwidgets
+</code></pre>
 <pre><code class="language-r">#visualize on a map
 m = leaflet() %&gt;%
     setView(lng=-87.705, lat=41.85443, zoom = 10) %&gt;% 
@@ -1140,9 +1141,9 @@ for (i in 1:length(data_filterlist)){
 
 m = addLayersControl(m, overlayGroups = layerlist, options = layersControlOptions(collapsed = FALSE))
 
-m
+frameWidget(m, width='90%')
 </code></pre>
-<p>preserve5a6bee482dfb03cc</p>
+<p>preservef4fd3e515bfe7da9</p>
 
     </div>
 
@@ -1364,10 +1365,8 @@ m
     
     
     
-      
-    
     <li>
-      <a href="/jane.enjieli@gmail.com" >
+      <a href="mailto:jane.enjieli@gmail.com" >
         <i class="fas fa-envelope"></i>
       </a>
     </li>

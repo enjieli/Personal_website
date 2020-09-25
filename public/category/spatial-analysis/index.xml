@@ -18,7 +18,6 @@
       <pubDate>Sat, 23 Nov 2019 00:00:00 +0000</pubDate>
       <guid>/post/2019-11-23-r-rmarkdown/</guid>
       <description>
-&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 &lt;script src=&#34;/rmarkdown-libs/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
 &lt;script src=&#34;/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
 &lt;script src=&#34;/rmarkdown-libs/pymjs/pym.v1.js&#34;&gt;&lt;/script&gt;
@@ -47,7 +46,8 @@ raw_df&amp;lt;-
   mutate( lat =as.numeric(lat)) %&amp;gt;%
   mutate( lon= as.numeric(lon))&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;div id=&#34;table-1-routes-with-most-stops&#34; class=&#34;section level5&#34; style=&#34;margin-top:50px;&#34;&gt;
+&lt;div style=&#34;margin-top:50px;&#34;&gt;
+&lt;div id=&#34;table-1-routes-with-most-stops&#34; class=&#34;section level5&#34;&gt;
 &lt;h5&gt;Table 1 Routes with most stops&lt;/h5&gt;
 &lt;div style=&#34;margin-bottom:20px;&#34;&gt;
 
@@ -157,7 +157,9 @@ N5
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-&lt;div id=&#34;table-2-stops-with-the-most-routes&#34; class=&#34;section level5&#34; style=&#34;margin-top:100px;&#34;&gt;
+&lt;div style=&#34;margin-top:100px;&#34;&gt;
+&lt;/div&gt;
+&lt;div id=&#34;table-2-stops-with-the-most-routes&#34; class=&#34;section level5&#34;&gt;
 &lt;h5&gt;Table 2 Stops with the most routes&lt;/h5&gt;
 &lt;div style=&#34;margin-bottom:20px;&#34;&gt;
 
@@ -365,8 +367,8 @@ GRAND
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-&lt;div id=&#34;figure-1-stop-density-map&#34; class=&#34;section level5&#34; style=&#34;margin-top:100px;&#34;&gt;
-&lt;h5&gt;Figure 1 Stop Density Map&lt;/h5&gt;
+&lt;div style=&#34;margin-top:100px;&#34;&gt;
+&lt;h5 id=&#34;figure-1-stop-density-map&#34;&gt;Figure 1 Stop Density Map&lt;/h5&gt;
 &lt;div style=&#34;margin-bottom:20px;&#34;&gt;
 
 &lt;/div&gt;
@@ -398,8 +400,8 @@ stops_density_map &amp;lt;-
 stops_density_map&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-11-23-r-rmarkdown_files/figure-html/chicago_basemap-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
-&lt;div id=&#34;figure-2-map-of-stops-with-no-ridership&#34; class=&#34;section level5&#34; style=&#34;margin-top:100px;&#34;&gt;
-&lt;h5&gt;Figure 2 Map of stops with no ridership&lt;/h5&gt;
+&lt;div style=&#34;margin-top:100px;&#34;&gt;
+&lt;h5 id=&#34;figure-2-map-of-stops-with-no-ridership&#34;&gt;Figure 2 Map of stops with no ridership&lt;/h5&gt;
 &lt;div style=&#34;margin-bottom:20px;&#34;&gt;
 
 &lt;/div&gt;
@@ -451,7 +453,9 @@ frameWidget(p1, width=&amp;#39;100%&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;htmlwidget-1&#34; style=&#34;width:100%;height:480px;&#34; class=&#34;widgetframe html-widget&#34;&gt;&lt;/div&gt;
 &lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-1&#34;&gt;{&#34;x&#34;:{&#34;url&#34;:&#34;/post/2019-11-23-r-rmarkdown_files/figure-html//widgets/widget_stop_route_long.html&#34;,&#34;options&#34;:{&#34;xdomain&#34;:&#34;*&#34;,&#34;allowfullscreen&#34;:false,&#34;lazyload&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
 &lt;/div&gt;
-&lt;div id=&#34;table-3-top-10-most-trafficked-routes&#34; class=&#34;section level5&#34; style=&#34;margin-top:100px;&#34;&gt;
+&lt;div style=&#34;margin-top:100px;&#34;&gt;
+&lt;/div&gt;
+&lt;div id=&#34;table-3-top-10-most-trafficked-routes&#34; class=&#34;section level5&#34;&gt;
 &lt;h5&gt;Table 3 Top 10 most trafficked routes&lt;/h5&gt;
 &lt;div style=&#34;margin-bottom:20px;&#34;&gt;
 
@@ -630,6 +634,7 @@ total
 &lt;/table&gt;
 &lt;/div&gt;
 &lt;div style=&#34;margin-top:100px;&#34;&gt;
+&lt;/div&gt;
 &lt;div id=&#34;figure-3-stops-segmentation-based-on-ridership&#34; class=&#34;section level5&#34;&gt;
 &lt;h5&gt;Figure 3 Stops segmentation based on Ridership&lt;/h5&gt;
 &lt;div style=&#34;margin-bottom:20px;&#34;&gt;
